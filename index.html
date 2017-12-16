@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<script type="text/javascript" src="main.js"></script>
+	<script src="Pizzicato.js"></script>
 </head>
+<body>
+	<header>Hello, world!</header>
+	<button onclick="init();">MakeSynth</button>
+	<button onclick="play();">Play</button>
+	<button onclick="stop();">Stop</button>
+	<button onclick="arp(440);">Arp</button>
+	<button onclick="majorChord();">Major Chord</button>
+	<button onclick="minorChord();">Minor Chord</button>
+	<button onclick="jazz();">Jazz</button>
+</body>
+<footer onload="makeSynth(0);"></footer>
 </html>
