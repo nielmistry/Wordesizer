@@ -7,8 +7,12 @@ var frequencies = [440, 440, 440, 440];
 function makeSynth(desc) {
 	switch (desc) {
 		case "wavy":
-		tremolo(Math.random() * 3 + 2, Math.random() * 0.5 + 0.5);
+		tremolo(Math.random() * 5 + 1, Math.random() * 0.5 + 0.5);
 		console.log("wavy");
+		break;
+		case "scratchy":
+		ringmod(Math.random() * 30 + 30, 0.75);
+		console.log("scratchy");
 		break;
 		default:
 	}
@@ -120,6 +124,16 @@ function tremolo(speed, depth) {
 	});
 
 	group.addEffect(tremolo);
+}
+
+function ringmod(speed, depth) {
+	var RingModulator = new Pizzicato.Effects.RingModulator({
+		speed: speed,
+		distortion: 4,
+		mix: depth
+	});
+
+	group.addEffect(RingModulator);
 }
 
 function sleep(ms) {
