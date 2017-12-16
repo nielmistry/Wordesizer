@@ -7,7 +7,10 @@ var frequencies = [440, 440, 440, 440];
 function makeSynth(desc) {
 	switch (desc) {
 		case "wavy":
-		
+		tremolo(Math.random() * 3 + 2, Math.random() * 0.5 + 0.5);
+		console.log("wavy");
+		break;
+		default:
 	}
 }
 
@@ -107,6 +110,16 @@ function lowPass(cutoff, resonance) {
 		peak: resonance
 	});
 	group.addEffect(lowPassFilter);
+}
+
+function tremolo(speed, depth) {
+	var tremolo = new Pizzicato.Effects.Tremolo({
+		speed: speed,
+		depth: depth,
+		mix: 1
+	});
+
+	group.addEffect(tremolo);
 }
 
 function sleep(ms) {
