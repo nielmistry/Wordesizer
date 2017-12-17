@@ -1,10 +1,12 @@
 
 .background {
   background-color: black;
-  width: 1280px;
-  height: 800px;
+
 }
 
+.container-fluid {
+	background-color: black;
+}
 
 .img-fluid {
   width: 50%;
@@ -29,7 +31,14 @@ h1{
 .search-wrapper {
 	width: 500px;
 	margin: auto;
-  margin-left: 435px;
+	align-content: center;
+	align-self:center;
+	align-items: center;
+
+}
+.searchButton {
+	align: center;
+	align-content: center;
 }
 .search-box {
 	width: 80%;

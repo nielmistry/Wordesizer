@@ -14,7 +14,9 @@ function getWord() {
 
 function makeSynth(desc) {
 	group = new Pizzicato.Group();
-	reverb(5)
+	reverb(5);
+		frequencies[0] = Math.random() * 900 + 220;
+		frequencies [1] = frequencies[2] = frequencies[3] = frequencies[0];
 	switch (desc) {
 		case "wavy":
 		shapes[0] = "sawtooth";
@@ -27,8 +29,7 @@ function makeSynth(desc) {
 		volumes[3] = Math.random()
 		tremolo(Math.random() * 3 + 1, Math.random() * 0.5 + 0.5);
 		group.release = 5;
-		frequencies[0] = Math.random() * 900 + 220;
-		frequencies [1] = frequencies[2] = frequencies[3] = frequencies[0];
+	
 		break;
 
 		case "scratchy":
