@@ -4,17 +4,22 @@ var volumes = [1, 1, 1, 1];
 var shapes = ["sawtooth", "sawtooth", "sawtooth", "sawtooth"];
 var frequencies = [440, 440, 440, 440];
 
+function getWord() {
+	var word = document.getElementById("input").value;
+	console.log(word);
+	findSimilar(word, function(similarWord) {
+		makeSynth(similarWord);
+	});
+}
+
 function makeSynth(desc) {
 	switch (desc) {
 		case "wavy":
 		tremolo(Math.random() * 5 + 1, Math.random() * 0.5 + 0.5);
-		console.log("wavy");
 		break;
 		case "scratchy":
 		ringmod(Math.random() * 30 + 30, 0.75);
-		console.log("scratchy");
 		break;
-		default:
 	}
 }
 
@@ -72,6 +77,15 @@ async function arp(freq) {
 		await sleep(1000/2);
 		osc0.frequency = freq * 4;
 		await sleep(1000/2);
+	}
+}
+
+async function vibrato(freq, amp) {
+	while(true) {
+		osc0.frequency = freq;
+		osc0.frequency = freq * 2;
+		osc0.frequency = freq * 3;
+		osc0.frequency = freq * 4;
 	}
 }
 

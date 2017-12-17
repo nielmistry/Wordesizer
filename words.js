@@ -1,7 +1,7 @@
 var words = ['wavy', 'scratchy', 'squeaky'];
 	var similarWord;
 
-const MAX = 10;
+const MAX = 50;
 function getJSON(word, max)
 {
 
