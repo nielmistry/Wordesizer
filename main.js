@@ -16,10 +16,17 @@ function makeSynth(desc) {
 	switch (desc) {
 		case "wavy":
 		tremolo(Math.random() * 5 + 1, Math.random() * 0.5 + 0.5);
+		flanger();
 		break;
 		case "scratchy":
 		ringmod(Math.random() * 30 + 30, 0.75);
 		break;
+
+
+		case "calm":
+		
+		break;
+
 	}
 }
 
