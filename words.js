@@ -1,4 +1,4 @@
-var words = ['wavy', 'scratchy', 'squeaky'];
+var words = ['wavy', 'scratchy', 'squeaky', 'calm', 'quick', 'retro', 'creepy', 'jazz', 'peaceful', 'energetic'];
 	var similarWord;
 
 const MAX = 50;

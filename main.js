@@ -1,10 +1,10 @@
 var group;
 var osc0, osc1, osc2, osc3;
 var volumes = [1, 1, 1, 1];
-var shapes = ["sine", "sine", "sine", "sine"];
+var shapes = ["sawtooth", "sawtooth", "sawtooth", "sawtooth"];
 var frequencies = [440, 440, 440, 440];
 
-function getWord() {
+function getWord() {	
 	var word = document.getElementById("input").value;
 	console.log(word);
 	findSimilar(word, function(similarWord) {
@@ -26,12 +26,24 @@ function makeSynth(desc) {
 		shapes[3] = "square";
 		volumes[3] = Math.random()
 		tremolo(Math.random() * 3 + 1, Math.random() * 0.5 + 0.5);
-		flanger();
+		group.release = 5;
+		frequencies[0] = Math.random() * 900 + 220;
+		frequencies [1] = frequencies[2] = frequencies[3] = frequencies[0];
 		break;
+
 		case "scratchy":
 		ringmod(Math.random() * 30 + 30, 0.75);
 		break;
-		frequency
+
+		case "calm":
+		for(var i = 0; i<4; i++)
+		{
+			shapes[i] = "sine";
+		}
+		majorChord();
+		lowPass(440, 0);
+		reverb(5);
+		break;
 	}
 	initOsc();
 }
