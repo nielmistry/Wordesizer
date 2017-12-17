@@ -14,7 +14,6 @@ function getWord() {
 
 function makeSynth(desc) {
 	group = new Pizzicato.Group();
-	reverb(5)
 	switch (desc) {
 		case "wavy":
 		shapes[0] = "sawtooth";
@@ -43,6 +42,27 @@ function makeSynth(desc) {
 		majorChord();
 		lowPass(440, 0);
 		reverb(5);
+		break;
+
+		case "quick":
+		arp();
+		// reverb(1);
+		break;
+
+		case "jazz":
+		jazz();
+		shapes = ["triangle", "triangle", "triangle", "triangle"];
+		break;
+
+		case "crunchy":
+		frequencies = [frequencies[0]/2, frequencies[0]/2*Math.pow(2, 12.15/12), frequencies[0]/2*Math.pow(2, 11.85/12), frequencies[0]/4];
+		shapes = ["sawtooth", "sawtooth", "sawtooth", "sawtooth"];
+		distort(0.2);
+		break;
+
+		case "creepy":
+		dim7();
+		shapes = ["sine", "sine", "sine", "sine"];
 		break;
 	}
 	initOsc();
@@ -103,16 +123,29 @@ async function playThenStop(time) {
 	group.stop();
 }
 
-async function arp(freq) {
+async function arp() {
+
 	while(true) {
-		osc0.frequency = freq;
-		await sleep(1000/2);
-		osc0.frequency = freq * 2;
-		await sleep(1000/2);
-		osc0.frequency = freq * 3;
-		await sleep(1000/2);
-		osc0.frequency = freq * 4;
-		await sleep(1000/2);
+		osc0.frequency = frequencies[0];
+		osc1.frequency = frequencies[1];
+		osc2.frequency = frequencies[2];
+		osc3.frequency = frequencies[3];
+		await sleep(1000/8);
+		osc0.frequency *= 2;
+		osc1.frequency *= 2;
+		osc2.frequency *= 2;
+		osc3.frequency *= 2;
+		await sleep(1000/8);
+		osc0.frequency *= 3;
+		osc1.frequency *= 3;
+		osc2.frequency *= 3;
+		osc3.frequency *= 3;
+		await sleep(1000/8);
+		osc0.frequency *= 4;
+		osc1.frequency *= 4;
+		osc2.frequency *= 4;
+		osc3.frequency *= 4;
+		await sleep(1000/8);
 	}
 }
 
@@ -130,8 +163,8 @@ function minorChord() {
 
 function dim7() {
 	frequencies[1] = frequencies[0] * Math.pow(2, 3/12);
-	frequencies[2] = frequencies[0] * Math.pow(2, 7/12);
-	frequencies[3] = frequencies[0] * 2;
+	frequencies[2] = frequencies[0] * Math.pow(2, 6/12);
+	frequencies[3] = frequencies[0] * Math.pow(2, 10/12);
 }
 
 function jazz() {
@@ -143,6 +176,16 @@ function jazz() {
 function distort(gain) {
 	var distortion = new Pizzicato.Effects.Distortion({gain: gain});
 	group.addEffect(distortion);
+}
+
+
+function delay(time) {
+	var delay = new Pizzicato.Effects.Delay({
+		feedback: 0.8,
+		time: time,
+		mix: 0.75
+	});
+	group.addEffect(delay);
 }
 
 function flanger(speed, depth) {
