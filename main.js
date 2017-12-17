@@ -14,15 +14,24 @@ function getWord() {
 
 function makeSynth(desc) {
 	group = new Pizzicato.Group();
-	group.release = 5;
+	reverb(5)
 	switch (desc) {
 		case "wavy":
+		shapes[0] = "sawtooth";
+		volumes[0] = Math.random()
+		shapes[1] = "sawtooth";
+		volumes[1] = Math.random()
+		shapes[2] = "square";
+		volumes[2] = Math.random()
+		shapes[3] = "square";
+		volumes[3] = Math.random()
 		tremolo(Math.random() * 3 + 1, Math.random() * 0.5 + 0.5);
-		// flanger();
+		flanger();
 		break;
 		case "scratchy":
 		ringmod(Math.random() * 30 + 30, 0.75);
 		break;
+		frequency
 	}
 	initOsc();
 }
@@ -78,7 +87,7 @@ async function playThenStop(time) {
 	group.play();
 	console.log("played");
 	await sleep(time);
-	console.log("played");
+	console.log("stopped");
 	group.stop();
 }
 
@@ -95,31 +104,28 @@ async function arp(freq) {
 	}
 }
 
-async function vibrato(freq, amp) {
-	while(true) {
-		osc0.frequency = freq;
-		osc0.frequency = freq * 2;
-		osc0.frequency = freq * 3;
-		osc0.frequency = freq * 4;
-	}
-}
-
 function majorChord() {
-	osc1.frequency = frequencies[0] * Math.pow(2, 4/12);
-	osc2.frequency = frequencies[0] * Math.pow(2, 7/12);
-	osc3.frequency = frequencies[0] * 2;
+	frequencies[1] = frequencies[0] * Math.pow(2, 4/12);
+	frequencies[2] = frequencies[0] * Math.pow(2, 7/12);
+	frequencies[3] = frequencies[0] * 2;
 }
 
 function minorChord() {
-	osc1.frequency = frequencies[0] * Math.pow(2, 3/12);
-	osc2.frequency = frequencies[0] * Math.pow(2, 7/12);
-	osc3.frequency = frequencies[0] * 2;
+	frequencies[1] = frequencies[0] * Math.pow(2, 3/12);
+	frequencies[2] = frequencies[0] * Math.pow(2, 7/12);
+	frequencies[3] = frequencies[0] * 2;
+}
+
+function dim7() {
+	frequencies[1] = frequencies[0] * Math.pow(2, 3/12);
+	frequencies[2] = frequencies[0] * Math.pow(2, 7/12);
+	frequencies[3] = frequencies[0] * 2;
 }
 
 function jazz() {
-	osc1.frequency = frequencies[0] * Math.pow(2, 4/12);
-	osc2.frequency = frequencies[0] * Math.pow(2, 7/12);
-	osc2.frequency = frequencies[0] * Math.pow(2, 10/12);
+	frequencies[1] = frequencies[0] * Math.pow(2, 4/12);
+	frequencies[2] = frequencies[0] * Math.pow(2, 7/12);
+	frequencies[3] = frequencies[0] * Math.pow(2, 10/12);
 }
 
 function distort(gain) {
