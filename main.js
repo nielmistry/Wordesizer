@@ -1,10 +1,10 @@
 var group;
 var osc0, osc1, osc2, osc3;
 var volumes = [1, 1, 1, 1];
-var shapes = ["sine", "sine", "sine", "sine"];
+var shapes = ["sawtooth", "sawtooth", "sawtooth", "sawtooth"];
 var frequencies = [440, 440, 440, 440];
 
-function getWord() {
+function getWord() {	
 	var word = document.getElementById("input").value;
 	console.log(word);
 	findSimilar(word, function(similarWord) {
@@ -15,6 +15,8 @@ function getWord() {
 function makeSynth(desc) {
 	group = new Pizzicato.Group();
 	group.release = 5;
+	frequencies[0] = Math.random() * 900 + 220;
+	frequencies [1] = frequencies[2] = frequencies[3] = frequencies[0];
 	switch (desc) {
 		case "wavy":
 		tremolo(Math.random() * 5 + 1, Math.random() * 0.5 + 0.5);
@@ -24,8 +26,14 @@ function makeSynth(desc) {
 		ringmod(Math.random() * 30 + 30, 0.75);
 		break;
 
-
 		case "calm":
+		for(var i = 0; i<4; i++)
+		{
+			shapes[i] = "sine";
+		}
+		majorChord();
+		lowPass(440, 0);
+		reverb(5);
 		
 		break;
 
@@ -111,9 +119,9 @@ async function vibrato(freq, amp) {
 }
 
 function majorChord() {
-	osc1.frequency = frequencies[0] * Math.pow(2, 4/12);
-	osc2.frequency = frequencies[0] * Math.pow(2, 7/12);
-	osc3.frequency = frequencies[0] * 2;
+	frequencies[1] = frequencies[0] * Math.pow(2, 4/12);
+	frequencies[2] = frequencies[0] * Math.pow(2, 7/12);
+	frequencies[3] = frequencies[0] * 2;
 }
 
 function minorChord() {
