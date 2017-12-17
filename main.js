@@ -1,7 +1,7 @@
 var group;
 var osc0, osc1, osc2, osc3;
 var volumes = [1, 1, 1, 1];
-var shapes = ["sawtooth", "sawtooth", "sawtooth", "sawtooth"];
+var shapes = ["sine", "sine", "sine", "sine"];
 var frequencies = [440, 440, 440, 440];
 
 function getWord() {
@@ -13,6 +13,8 @@ function getWord() {
 }
 
 function makeSynth(desc) {
+	group = new Pizzicato.Group();
+	group.release = 5;
 	switch (desc) {
 		case "wavy":
 		tremolo(Math.random() * 5 + 1, Math.random() * 0.5 + 0.5);
@@ -28,14 +30,15 @@ function makeSynth(desc) {
 		break;
 
 	}
+	initOsc();
 }
 
-function init() {
+function initOsc() {
 	osc0 = new Pizzicato.Sound({
 		source: 'wave',
 		options: {
 			volume: volumes[0],
-			type: 'sawtooth',
+			type: shapes[0],
 			frequency: frequencies[0]
 		}
 	});
@@ -43,7 +46,7 @@ function init() {
 		source: 'wave',
 		options: {
 			volume: volumes[1],
-			type: 'sawtooth',
+			type: shapes[1],
 			frequency: frequencies[1]
 		}
 	});
@@ -51,7 +54,7 @@ function init() {
 		source: 'wave',
 		options: {
 			volume: volumes[2],
-			type: 'sawtooth',
+			type: shapes[2],
 			frequency: frequencies[2]
 		}
 	});
@@ -59,11 +62,14 @@ function init() {
 		source: 'wave',
 		options: {
 			volume: volumes[3],
-			type: 'sawtooth',
+			type: shapes[3],
 			frequency: frequencies[3]
 		}
 	});
-	group = new Pizzicato.Group([osc0, osc1, osc2, osc3]);
+	group.addSound(osc0);
+	group.addSound(osc1);
+	group.addSound(osc2);
+	group.addSound(osc3);
 }
 
 function play() {
@@ -71,6 +77,14 @@ function play() {
 }
 
 function stop() {
+	group.stop();
+}
+
+async function playThenStop(time) {
+	group.play();
+	console.log("played");
+	await sleep(time);
+	console.log("played");
 	group.stop();
 }
 
@@ -145,6 +159,16 @@ function tremolo(speed, depth) {
 	});
 
 	group.addEffect(tremolo);
+}
+
+function reverb(time) {
+	var reverb = new Pizzicato.Effects.Reverb({
+		time: time,
+		decay: 0.8,
+		reverse: true,
+		mix: 0.5
+	});
+	group.addEffect(reverb);
 }
 
 function ringmod(speed, depth) {

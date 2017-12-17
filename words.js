@@ -45,7 +45,3 @@ function findSimilar(word, callback) {
 		callback(similarWord);
 	}
 }
-
-findSimilar("hey", function(similarWord) {
-	console.log('Similar word found: ',similarWord);
-});
